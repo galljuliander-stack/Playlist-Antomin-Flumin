@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Songliste pflegen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;700&family=Poppins:wght@800&display=swap" rel="stylesheet">
+<style>
+:root{--papier:#FBF1E3;--papier-tief:#F3E4CE;--tinte:#2A2119;--weich:#6B5B4A;
+      --gruen:#7C9A48;--gruen-dunkel:#66803A;--rahmen:#3A3128;--rot:#A8443A}
+*{box-sizing:border-box}
+body{margin:0;background:var(--papier);color:var(--tinte);font-family:Bitter,Georgia,serif;font-size:16px;line-height:1.55}
+.blatt{max-width:52rem;margin:1rem auto 4rem;padding:1.5rem 1.2rem 2.5rem;border:1.5px solid var(--rahmen);border-radius:6px 5px 7px 4px}
+@media(min-width:640px){.blatt{padding:2.2rem 2.4rem}}
+h1{font-family:Poppins,sans-serif;font-weight:800;text-transform:uppercase;color:var(--gruen);font-size:clamp(1.5rem,5.5vw,2.1rem);line-height:1.15;margin:0 0 .4rem}
+h2{font-weight:700;font-size:1.15rem;margin:2.2rem 0 .6rem}
+p.hinweis{color:var(--weich);font-size:.93rem;margin:0 0 1.4rem}
+
+.eintrag{border:1px solid rgba(58,49,40,.28);background:var(--papier-tief);padding:1rem;margin-bottom:.9rem}
+.kopfzeile{display:flex;align-items:center;gap:.6rem;cursor:pointer}
+.kopfzeile .name{font-weight:700;flex:1}
+.kopfzeile .id{font-family:ui-monospace,monospace;font-size:.75rem;color:var(--weich)}
+.pfeil{border:none;background:none;font-size:1rem;cursor:pointer;color:var(--weich);padding:.2rem .35rem;line-height:1}
+.pfeil:hover{color:var(--tinte)}
+.felder{display:none;margin-top:.9rem}
+.eintrag.offen .felder{display:block}
+label{display:block;font-size:.8rem;font-weight:700;margin:.8rem 0 .2rem}
+input,textarea,select{width:100%;font-family:inherit;font-size:.95rem;padding:.5rem .6rem;
+  border:1px solid rgba(58,49,40,.4);background:#fff;color:var(--tinte);border-radius:0}
+textarea{min-height:4.5rem;resize:vertical}
+.klein{font-size:.78rem;color:var(--weich);margin-top:.2rem}
+.gesperrt{background:#EFE8DC;color:var(--weich)}
+
+.knopf{font-family:Poppins,sans-serif;font-weight:800;font-size:.82rem;text-transform:uppercase;
+  padding:.7rem 1.1rem;border:2px solid var(--gruen);background:var(--gruen);color:#fff;cursor:pointer}
+.knopf:hover{background:var(--gruen-dunkel);border-color:var(--gruen-dunkel)}
+.knopf.hell{background:transparent;color:var(--tinte);border-color:var(--rahmen)}
+.knopf.hell:hover{background:rgba(58,49,40,.08);color:var(--tinte)}
+.knopf.rot{background:transparent;color:var(--rot);border-color:var(--rot);font-size:.75rem;padding:.45rem .8rem}
+.knopf.rot:hover{background:var(--rot);color:#fff}
+.leiste{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.4rem;align-items:center}
+.meldung{margin-top:1rem;padding:.7rem .9rem;border-left:5px solid var(--gruen);background:var(--papier-tief);font-size:.92rem}
+.meldung.fehler{border-color:var(--rot)}
+details{margin-top:2.5rem;border-top:1px solid rgba(58,49,40,.25);padding-top:1rem}
+summary{cursor:pointer;font-weight:700}
+.raster2{display:grid;gap:.7rem;grid-template-columns:1fr}
+@media(min-width:600px){.raster2{grid-template-columns:1fr 1fr}}
+a{color:var(--gruen-dunkel)}
+</style>
+</head>
+<body>
+<div class="blatt">
+  <h1>Songliste pflegen</h1>
+  <p class="hinweis">Hier änderst du, was auf der Songseite steht. Am Ende speicherst du die Liste
+  als <code>songs.json</code> und lädst sie in dein GitHub-Repository — oder du lässt sie direkt
+  von hier aus committen (siehe ganz unten).</p>
+
+  <div id="liste"></div>
+
+  <div class="leiste">
+    <button class="knopf hell" id="neu">+ Song hinzufügen</button>
+    <button class="knopf" id="download">songs.json herunterladen</button>
+  </div>
+  <div id="meldung"></div>
+
+  <details id="direkt">
+    <summary>Direkt in GitHub speichern (optional)</summary>
+    <p class="hinweis" style="margin-top:.8rem">Spart das Herunterladen und Hochladen. Du brauchst
+    dafür einen Fine-grained Personal Access Token mit Schreibrechten (Contents) nur für dieses eine
+    Repository. Der Token bleibt in diesem Browser und wird nur an github.com geschickt.</p>
+    <div class="raster2">
+      <div><label>GitHub-Benutzername</label><input id="gh-owner" placeholder="deinname"></div>
+      <div><label>Repository</label><input id="gh-repo" placeholder="mumin-chroniken"></div>
+      <div><label>Branch</label><input id="gh-branch" value="main"></div>
+      <div><label>Token</label><input id="gh-token" type="password" placeholder="github_pat_..."></div>
+    </div>
+    <div class="leiste">
+      <button class="knopf" id="commit">In GitHub speichern</button>
+      <button class="knopf hell" id="merken">Zugang in diesem Browser merken</button>
+    </div>
+  </details>
+</div>
+
+<script>
+let lieder = [];
+const listeEl = document.getElementById("liste");
+const meldungEl = document.getElementById("meldung");
+
+function melde(text, fehler){
+  meldungEl.innerHTML = '<div class="meldung' + (fehler ? ' fehler' : '') + '">' + text + '</div>';
+}
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+
+function zeichne(){
+  listeEl.innerHTML = lieder.map((l,i) => `
+    <div class="eintrag" data-i="${i}">
+      <div class="kopfzeile">
+        <button class="pfeil" data-hoch="${i}" title="nach oben">▲</button>
+        <button class="pfeil" data-runter="${i}" title="nach unten">▼</button>
+        <span class="name" data-auf="${i}">${esc(l.titel || "Ohne Titel")} <span class="id">${esc(l.id)}</span></span>
+      </div>
+      <div class="felder">
+        <label>Kapitel (Überschrift auf der Startseite)</label>
+        <input data-feld="kapitel" value="${esc(l.kapitel)}">
+        <label>Titel</label>
+        <input data-feld="titel" value="${esc(l.titel)}">
+        <label>Künstler / Untertitel</label>
+        <input data-feld="kuenstler" value="${esc(l.kuenstler)}">
+        <label>Notiz aus der Geschichte</label>
+        <textarea data-feld="notiz">${esc(l.notiz)}</textarea>
+        <label>Spotify-Link</label>
+        <input data-feld="spotify" value="${esc(l.spotify)}" placeholder="leer lassen blendet den Knopf aus">
+        <label>YouTube-Link</label>
+        <input data-feld="youtube" value="${esc(l.youtube)}" placeholder="leer lassen blendet den Knopf aus">
+        <label>Adresse (id)</label>
+        <input data-feld="id" value="${esc(l.id)}" class="${l._neu ? "" : "gesperrt"}" ${l._neu ? "" : "readonly"}>
+        <div class="klein">${l._neu
+          ? "Nur Kleinbuchstaben, Zahlen und Bindestriche."
+          : "Steht im gedruckten QR-Code und ist deshalb gesperrt."}</div>
+        <div class="leiste"><button class="knopf rot" data-weg="${i}">Song löschen</button></div>
+      </div>
+    </div>`).join("");
+}
+
+listeEl.addEventListener("click", e => {
+  const t = e.target;
+  if(t.dataset.auf !== undefined) t.closest(".eintrag").classList.toggle("offen");
+  if(t.dataset.hoch !== undefined){ const i=+t.dataset.hoch; if(i>0){ [lieder[i-1],lieder[i]]=[lieder[i],lieder[i-1]]; zeichne(); } }
+  if(t.dataset.runter !== undefined){ const i=+t.dataset.runter; if(i<lieder.length-1){ [lieder[i+1],lieder[i]]=[lieder[i],lieder[i+1]]; zeichne(); } }
+  if(t.dataset.weg !== undefined){
+    const i=+t.dataset.weg;
+    if(confirm('"' + (lieder[i].titel||lieder[i].id) + '" wirklich löschen? Ein bereits gedruckter QR-Code läuft danach ins Leere.')){
+      lieder.splice(i,1); zeichne();
+    }
+  }
+});
+
+listeEl.addEventListener("input", e => {
+  const feld = e.target.dataset.feld;
+  if(!feld) return;
+  const i = +e.target.closest(".eintrag").dataset.i;
+  let wert = e.target.value;
+  if(feld === "id") wert = wert.toLowerCase().replace(/[^a-z0-9-]/g,"-");
+  lieder[i][feld] = wert;
+  if(feld === "titel" || feld === "id"){
+    const kopf = e.target.closest(".eintrag").querySelector(".name");
+    kopf.innerHTML = esc(lieder[i].titel || "Ohne Titel") + ' <span class="id">' + esc(lieder[i].id) + '</span>';
+  }
+});
+
+document.getElementById("neu").onclick = () => {
+  lieder.push({id:"neuer-song-"+(lieder.length+1), titel:"Noch offen", kuenstler:"", kapitel:"", notiz:"", spotify:"", youtube:"", _neu:true});
+  zeichne();
+  listeEl.lastElementChild.classList.add("offen");
+  listeEl.lastElementChild.scrollIntoView({block:"center"});
+};
+
+function sauber(){
+  return lieder.map(l => ({id:l.id, titel:l.titel, kuenstler:l.kuenstler, kapitel:l.kapitel,
+                           notiz:l.notiz, spotify:l.spotify, youtube:l.youtube}));
+}
+function pruefe(){
+  const ids = sauber().map(l => l.id);
+  const doppelt = ids.filter((id,i) => ids.indexOf(id) !== i);
+  if(doppelt.length){ melde("Die Adresse <code>"+esc(doppelt[0])+"</code> kommt doppelt vor. Jede id darf es nur einmal geben.", true); return false; }
+  if(ids.some(id => !id)){ melde("Ein Song hat keine Adresse (id).", true); return false; }
+  return true;
+}
+
+document.getElementById("download").onclick = () => {
+  if(!pruefe()) return;
+  const text = JSON.stringify(sauber(), null, 2);
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([text], {type:"application/json"}));
+  a.download = "songs.json";
+  a.click();
+  melde("Gespeichert. Jetzt die Datei <code>songs.json</code> im GitHub-Repository ersetzen — dieselbe Stelle, an der sie schon liegt.");
+};
+
+/* ---------- optional: direkt committen ---------- */
+const felder = ["gh-owner","gh-repo","gh-branch","gh-token"];
+try{
+  const g = JSON.parse(localStorage.getItem("gh") || "{}");
+  felder.forEach(f => { if(g[f]) document.getElementById(f).value = g[f]; });
+  if(g["gh-owner"]) document.getElementById("direkt").open = true;
+}catch(e){}
+
+document.getElementById("merken").onclick = () => {
+  const g = {}; felder.forEach(f => g[f] = document.getElementById(f).value);
+  try{ localStorage.setItem("gh", JSON.stringify(g)); melde("Zugang in diesem Browser gemerkt."); }
+  catch(e){ melde("Konnte nichts merken — der Browser blockiert die Speicherung.", true); }
+};
+
+function b64(text){
+  const bytes = new TextEncoder().encode(text);
+  let bin = ""; bytes.forEach(b => bin += String.fromCharCode(b));
+  return btoa(bin);
+}
+
+document.getElementById("commit").onclick = async () => {
+  if(!pruefe()) return;
+  const owner = document.getElementById("gh-owner").value.trim();
+  const repo  = document.getElementById("gh-repo").value.trim();
+  const branch= document.getElementById("gh-branch").value.trim() || "main";
+  const token = document.getElementById("gh-token").value.trim();
+  if(!owner || !repo || !token){ melde("Benutzername, Repository und Token ausfüllen.", true); return; }
+
+  const url = "https://api.github.com/repos/"+owner+"/"+repo+"/contents/songs.json";
+  const kopf = {Authorization:"Bearer "+token, Accept:"application/vnd.github+json"};
+  melde("Speichere …");
+  try{
+    let sha;
+    const alt = await fetch(url+"?ref="+branch, {headers:kopf});
+    if(alt.ok) sha = (await alt.json()).sha;
+    else if(alt.status === 401 || alt.status === 403){ melde("Der Token wird nicht akzeptiert. Hat er Schreibrechte für <em>Contents</em> in diesem Repository?", true); return; }
+
+    const res = await fetch(url, {
+      method:"PUT", headers:{...kopf,"Content-Type":"application/json"},
+      body: JSON.stringify({message:"Songliste aktualisiert", content:b64(JSON.stringify(sauber(),null,2)), branch, ...(sha?{sha}:{})})
+    });
+    if(res.ok) melde("Gespeichert. GitHub Pages braucht ein bis zwei Minuten, dann ist die Änderung live.");
+    else melde("GitHub meldet: " + esc((await res.json()).message || res.status), true);
+  }catch(e){
+    melde("Verbindung zu GitHub fehlgeschlagen: " + esc(e.message), true);
+  }
+};
+
+/* ---------- Start ---------- */
+fetch("songs.json?v=" + Date.now())
+  .then(r => r.json())
+  .then(d => { lieder = d; zeichne(); })
+  .catch(() => { melde("<code>songs.json</code> konnte nicht geladen werden. Diese Seite muss über GitHub Pages geöffnet werden, nicht als lokale Datei.", true); });
+</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+[
+  {
+    "id": "vorwort",
+    "titel": "Noch offen",
+    "kuenstler": "Der Song zum Vorwort",
+    "kapitel": "Vorwort",
+    "notiz": "Getreu unserer Bürotradition gehört zu jedem richtig guten Arbeitstag auch ein richtig guter Ohrwurm.",
+    "spotify": "",
+    "youtube": ""
+  },
+  {
+    "id": "kapitel-1",
+    "titel": "Noch offen",
+    "kuenstler": "Der Song zum Jobwechsel",
+    "kapitel": "Kapitel 1 – Der Jobwechsel",
+    "notiz": "Raus aus der Verwaltung, rein in die Senffabrik.",
+    "spotify": "",
+    "youtube": ""
+  },
+  {
+    "id": "petit-poney",
+    "titel": "Petit Poney",
+    "kuenstler": "Franzumins Montags-Ohrwurm",
+    "kapitel": "Kapitel 2 – Geschichten aus dem Büro",
+    "notiz": "Wer ihn einmal von Franzumin vorgesungen bekommen hat, kennt ihn danach für den Rest des Lebens.",
+    "spotify": "",
+    "youtube": ""
+  },
+  {
+    "id": "kapitel-2-blond",
+    "titel": "Noch offen",
+    "kuenstler": "Der Song zum Blondbonus",
+    "kapitel": "Kapitel 2 – Geschichten aus dem Büro",
+    "notiz": "Ob High- oder Lowperformer – Hauptsache blond.",
+    "spotify": "",
+    "youtube": ""
+  },
+  {
+    "id": "lose-control",
+    "titel": "Lose Control",
+    "kuenstler": "Teddy Swims",
+    "kapitel": "Kapitel 3 – Karaoke-Abende",
+    "notiz": "Das Paradestück von Antomin und Franzumin. Der Name ist Programm – nur bei den Stimmbändern verlieren die beiden nie die Kontrolle.",
+    "spotify": "https://open.spotify.com/search/Lose%20Control%20Teddy%20Swims",
+    "youtube": "https://www.youtube.com/results?search_query=Lose+Control+Teddy+Swims"
+  },
+  {
+    "id": "moskau",
+    "titel": "Moskau",
+    "kuenstler": "Dschinghis Khan",
+    "kapitel": "Kapitel 3 – Karaoke-Abende",
+    "notiz": "Der absolute Höhepunkt jedes Abends. Zeile für Zeile in den Rollen der Direktoren der Senf-Fabrik.",
+    "spotify": "https://open.spotify.com/search/Moskau%20Dschinghis%20Khan",
+    "youtube": "https://www.youtube.com/results?search_query=Moskau+Dschinghis+Khan"
+  },
+  {
+    "id": "i-will-survive",
+    "titel": "I Will Survive",
+    "kuenstler": "Gloria Gaynor",
+    "kapitel": "Kapitel 3 – Karaoke-Abende",
+    "notiz": "Für die ruhigere Note des Abends – immer dann, wenn der Arbeitstag zäh war.",
+    "spotify": "https://open.spotify.com/search/I%20Will%20Survive%20Gloria%20Gaynor",
+    "youtube": "https://www.youtube.com/results?search_query=I+Will+Survive+Gloria+Gaynor"
+  },
+  {
+    "id": "shake-it-off",
+    "titel": "Shake It Off",
+    "kuenstler": "Taylor Swift",
+    "kapitel": "Kapitel 3 – Karaoke-Abende",
+    "notiz": "Wenn es einfach mal wieder Zeit ist, alles hinter sich zu lassen.",
+    "spotify": "https://open.spotify.com/search/Shake%20It%20Off%20Taylor%20Swift",
+    "youtube": "https://www.youtube.com/results?search_query=Shake+It+Off+Taylor+Swift"
+  },
+  {
+    "id": "kapitel-4",
+    "titel": "Noch offen",
+    "kuenstler": "Der Song zur Verlobung",
+    "kapitel": "Kapitel 4 – Die Verlobung in London",
+    "notiz": "Weihnachtliche Lichterpracht, ein Ring hinter dem Handtuch und ein sehr langes Schweigen.",
+    "spotify": "",
+    "youtube": ""
+  },
+  {
+    "id": "kapitel-5",
+    "titel": "Noch offen",
+    "kuenstler": "Der Song für die Betzis",
+    "kapitel": "Kapitel 5 – Die Betzifamilie",
+    "notiz": "Fahrradtouren, geheime Geburtstagsmottos und Jabba the Lumin.",
+    "spotify": "",
+    "youtube": ""
+  },
+  {
+    "id": "kapitel-6",
+    "titel": "Noch offen",
+    "kuenstler": "Der Song für zuhause",
+    "kapitel": "Kapitel 6 – Zuhause bei Antomin und Flumin",
+    "notiz": "Ein Rücken aus Stahl und eine Adresse mit Auslegungsspielraum.",
+    "spotify": "",
+    "youtube": ""
+  }
+]
