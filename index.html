@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Die Ohrwürmer der Mumin Chroniken</title>
+<meta name="description" content="Die Songs zu den Geschichten von Antomin & Flumin.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,700;1,400&family=Poppins:wght@800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --papier:#FBF1E3;
+  --papier-tief:#F3E4CE;
+  --tinte:#2A2119;
+  --tinte-weich:#6B5B4A;
+  --gruen:#7C9A48;
+  --gruen-dunkel:#66803A;
+  --rahmen:#3A3128;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--papier);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.055'/%3E%3C/svg%3E");
+  color:var(--tinte);
+  font-family:Bitter,Georgia,serif;
+  font-size:16.5px;
+  line-height:1.6;
+}
+.blatt{
+  max-width:40rem;margin:1rem auto 3rem;padding:1.6rem 1.4rem 2.6rem;
+  border:1.5px solid var(--rahmen);
+  border-radius:6px 5px 7px 4px;
+  min-height:calc(100vh - 2rem);
+}
+@media(min-width:640px){.blatt{padding:2.4rem 2.6rem 3rem;margin:1.8rem auto 3rem}}
+
+h1.kapitelkopf,.kapitelkopf{
+  font-family:Poppins,system-ui,sans-serif;font-weight:800;
+  text-transform:uppercase;color:var(--gruen);
+  font-size:clamp(1.55rem,6.4vw,2.3rem);line-height:1.12;
+  letter-spacing:.005em;margin:0 0 .5rem;
+}
+h2.blatt-titel{
+  font-family:Bitter,Georgia,serif;font-weight:700;
+  font-size:clamp(1.3rem,5vw,1.7rem);margin:0 0 .9rem;
+}
+p{margin:0 0 1rem;text-align:justify;hyphens:auto}
+
+/* ---------- Übersicht ---------- */
+.kapitel-marke{
+  font-family:Poppins,system-ui,sans-serif;font-weight:800;
+  text-transform:uppercase;color:var(--gruen);
+  font-size:.92rem;letter-spacing:.02em;
+  margin:2.2rem 0 .35rem;
+}
+.lied{
+  display:block;text-decoration:none;color:inherit;position:relative;
+  padding:.85rem 2rem .85rem 0;
+  border-bottom:1px solid rgba(58,49,40,.22);
+}
+.liste .lied:first-child{border-top:1px solid rgba(58,49,40,.22)}
+.lied .titel{font-family:Bitter,Georgia,serif;font-weight:700;font-size:1.2rem;line-height:1.3;display:block}
+.lied .kuenstler{color:var(--tinte-weich);font-size:.93rem}
+.lied::after{
+  content:"";position:absolute;right:.5rem;top:50%;
+  width:.5rem;height:.5rem;margin-top:-.38rem;
+  border-right:2px solid var(--gruen-dunkel);border-bottom:2px solid var(--gruen-dunkel);
+  transform:rotate(-45deg);
+}
+.lied:hover .titel{color:var(--gruen-dunkel)}
+
+/* ---------- Liedseite ---------- */
+.zurueck{
+  display:inline-block;color:var(--gruen-dunkel);text-decoration:none;
+  font-size:.92rem;margin:0 0 1.4rem;border-bottom:1px solid transparent;
+}
+.zurueck:hover{border-bottom-color:var(--gruen-dunkel)}
+.kuenstler-gross{color:var(--tinte-weich);font-size:1.05rem;margin:-.4rem 0 1.3rem}
+.notiz{
+  background:var(--papier-tief);
+  border-left:5px solid var(--gruen);
+  padding:.9rem 1.1rem;margin:0 0 1.8rem;
+  font-style:italic;text-align:left;
+}
+.knopfreihe{display:flex;flex-direction:column;gap:.75rem;max-width:23rem}
+.knopf{
+  display:flex;align-items:center;gap:.7rem;
+  padding:.85rem 1.1rem;
+  font-family:Poppins,system-ui,sans-serif;font-weight:800;font-size:.9rem;
+  text-transform:uppercase;letter-spacing:.01em;text-decoration:none;
+  background:var(--gruen);color:#fff;border:2px solid var(--gruen);
+}
+.knopf.hell{background:transparent;color:var(--tinte);border-color:var(--rahmen)}
+.knopf:hover{background:var(--gruen-dunkel);border-color:var(--gruen-dunkel);color:#fff}
+.fehlt{padding:.85rem 1.1rem;border:2px dashed rgba(58,49,40,.35);color:var(--tinte-weich);font-size:.95rem}
+
+/* ---------- QR ---------- */
+.qr-raster{display:grid;grid-template-columns:repeat(auto-fill,minmax(9rem,1fr));gap:1.5rem;margin-top:1.6rem}
+.qr-feld{text-align:center}
+.qr-feld>div{background:var(--gruen);padding:.55rem;display:inline-block;line-height:0}
+.qr-feld img,.qr-feld canvas{width:100%;height:auto;max-width:8rem}
+.qr-feld span{display:block;font-weight:700;font-size:.85rem;margin-top:.5rem;line-height:1.3}
+.qr-feld code{font-size:.68rem;color:var(--tinte-weich);word-break:break-all;font-family:ui-monospace,monospace}
+
+.fuss{margin-top:3rem;padding-top:1rem;border-top:1px solid rgba(58,49,40,.22);font-size:.88rem;color:var(--tinte-weich);text-align:center}
+.fuss a{color:var(--gruen-dunkel)}
+a:focus-visible,.lied:focus-visible{outline:3px solid var(--gruen);outline-offset:3px}
+
+#buehne{animation:auf .45s ease-out both}
+@keyframes auf{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){#buehne{animation:none}}
+
+@media print{
+  body{background:#fff;background-image:none}
+  .blatt{border:none;min-height:0}
+  .zurueck,.fuss{display:none}
+  .qr-raster{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="blatt">
+  <main id="buehne"></main>
+  <div class="fuss">Mumin Chroniken · <a href="#/qr">QR-Codes zum Ausdrucken</a></div>
+</div>
+
+<script>
+/* =======================================================================
+   HIER PFLEGST DU ALLES.
+   - "id" steht im QR-Code-Link und darf sich nach dem Druck nicht mehr ändern.
+   - spotify/youtube: Link aus der App über "Teilen" kopieren.
+     Leer lassen ("") blendet den Knopf aus.
+   ======================================================================= */
+const LIEDER = [
+  {
+    id: "vorwort",
+    titel: "Noch offen",
+    kuenstler: "Der Song zum Vorwort",
+    kapitel: "Vorwort",
+    notiz: "Getreu unserer Bürotradition gehört zu jedem richtig guten Arbeitstag auch ein richtig guter Ohrwurm.",
+    spotify: "",
+    youtube: ""
+  },
+  {
+    id: "kapitel-1",
+    titel: "Noch offen",
+    kuenstler: "Der Song zum Jobwechsel",
+    kapitel: "Kapitel 1 – Der Jobwechsel",
+    notiz: "Raus aus der Verwaltung, rein in die Senffabrik.",
+    spotify: "",
+    youtube: ""
+  },
+  {
+    id: "petit-poney",
+    titel: "Petit Poney",
+    kuenstler: "Franzumins Montags-Ohrwurm",
+    kapitel: "Kapitel 2 – Geschichten aus dem Büro",
+    notiz: "Wer ihn einmal von Franzumin vorgesungen bekommen hat, kennt ihn danach für den Rest des Lebens.",
+    spotify: "",
+    youtube: ""
+  },
+  {
+    id: "kapitel-2-blond",
+    titel: "Noch offen",
+    kuenstler: "Der Song zum Blondbonus",
+    kapitel: "Kapitel 2 – Geschichten aus dem Büro",
+    notiz: "Ob High- oder Lowperformer – Hauptsache blond.",
+    spotify: "",
+    youtube: ""
+  },
+  {
+    id: "lose-control",
+    titel: "Lose Control",
+    kuenstler: "Teddy Swims",
+    kapitel: "Kapitel 3 – Karaoke-Abende",
+    notiz: "Das Paradestück von Antomin und Franzumin. Der Name ist Programm – nur bei den Stimmbändern verlieren die beiden nie die Kontrolle.",
+    spotify: "https://open.spotify.com/search/Lose%20Control%20Teddy%20Swims",
+    youtube: "https://www.youtube.com/results?search_query=Lose+Control+Teddy+Swims"
+  },
+  {
+    id: "moskau",
+    titel: "Moskau",
+    kuenstler: "Dschinghis Khan",
+    kapitel: "Kapitel 3 – Karaoke-Abende",
+    notiz: "Der absolute Höhepunkt jedes Abends. Zeile für Zeile in den Rollen der Direktoren der Senf-Fabrik.",
+    spotify: "https://open.spotify.com/search/Moskau%20Dschinghis%20Khan",
+    youtube: "https://www.youtube.com/results?search_query=Moskau+Dschinghis+Khan"
+  },
+  {
+    id: "i-will-survive",
+    titel: "I Will Survive",
+    kuenstler: "Gloria Gaynor",
+    kapitel: "Kapitel 3 – Karaoke-Abende",
+    notiz: "Für die ruhigere Note des Abends – immer dann, wenn der Arbeitstag zäh war.",
+    spotify: "https://open.spotify.com/search/I%20Will%20Survive%20Gloria%20Gaynor",
+    youtube: "https://www.youtube.com/results?search_query=I+Will+Survive+Gloria+Gaynor"
+  },
+  {
+    id: "shake-it-off",
+    titel: "Shake It Off",
+    kuenstler: "Taylor Swift",
+    kapitel: "Kapitel 3 – Karaoke-Abende",
+    notiz: "Wenn es einfach mal wieder Zeit ist, alles hinter sich zu lassen.",
+    spotify: "https://open.spotify.com/search/Shake%20It%20Off%20Taylor%20Swift",
+    youtube: "https://www.youtube.com/results?search_query=Shake+It+Off+Taylor+Swift"
+  },
+  {
+    id: "kapitel-4",
+    titel: "Noch offen",
+    kuenstler: "Der Song zur Verlobung",
+    kapitel: "Kapitel 4 – Die Verlobung in London",
+    notiz: "Weihnachtliche Lichterpracht, ein Ring hinter dem Handtuch und ein sehr langes Schweigen.",
+    spotify: "",
+    youtube: ""
+  },
+  {
+    id: "kapitel-5",
+    titel: "Noch offen",
+    kuenstler: "Der Song für die Betzis",
+    kapitel: "Kapitel 5 – Die Betzifamilie",
+    notiz: "Fahrradtouren, geheime Geburtstagsmottos und Jabba the Lumin.",
+    spotify: "",
+    youtube: ""
+  },
+  {
+    id: "kapitel-6",
+    titel: "Noch offen",
+    kuenstler: "Der Song für zuhause",
+    kapitel: "Kapitel 6 – Zuhause bei Antomin und Flumin",
+    notiz: "Ein Rücken aus Stahl und eine Adresse mit Auslegungsspielraum.",
+    spotify: "",
+    youtube: ""
+  }
+];
+
+/* ------------------------------------------------------------------ */
+
+const buehne = document.getElementById("buehne");
+
+const ICON = {
+  spotify: `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm4.6 14.4a.8.8 0 01-1.1.3c-3-1.8-6.7-2.2-11.1-1.2a.8.8 0 11-.3-1.5c4.8-1.1 8.9-.6 12.2 1.4.4.2.5.7.3 1zm1.2-2.8a1 1 0 01-1.3.3c-3.4-2.1-8.6-2.7-12.6-1.5a1 1 0 11-.6-1.9c4.6-1.4 10.3-.7 14.2 1.7.5.3.6.9.3 1.4zm.1-2.9C14 8.4 7.7 8.2 4.2 9.2a1.2 1.2 0 01-.7-2.3c4-1.2 11-1 15.4 1.6a1.2 1.2 0 01-1.2 2.1z"/></svg>`,
+  youtube: `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 12s0-3.5-.4-5.2a2.7 2.7 0 00-1.9-1.9C19 4.5 12 4.5 12 4.5s-7 0-8.7.4a2.7 2.7 0 00-1.9 1.9C1 8.5 1 12 1 12s0 3.5.4 5.2c.2.9.9 1.6 1.9 1.9 1.7.4 8.7.4 8.7.4s7 0 8.7-.4a2.7 2.7 0 001.9-1.9C23 15.5 23 12 23 12zM9.8 15.4V8.6l5.9 3.4-5.9 3.4z"/></svg>`
+};
+
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+
+function zeigeUebersicht(){
+  const kapitel = [...new Set(LIEDER.map(l => l.kapitel))];
+  const abschnitte = kapitel.map(k => `
+    <div class="kapitel-marke">${esc(k)}</div>
+    <div class="liste">
+      ${LIEDER.filter(l => l.kapitel === k).map(l => `
+        <a class="lied" href="#/${l.id}">
+          <span class="titel">${esc(l.titel)}</span>
+          <span class="kuenstler">${esc(l.kuenstler)}</span>
+        </a>`).join("")}
+    </div>`).join("");
+
+  buehne.innerHTML = `
+    <h1 class="kapitelkopf">Die Ohrwürmer der Chroniken</h1>
+    <h2 class="blatt-titel">Musik zu jeder Geschichte</h2>
+    <p>Getreu der Bürotradition gehört zu jedem richtig guten Arbeitstag auch ein richtig guter Ohrwurm.
+    Hier sind sie alle versammelt – such dir einen aus und spiel ihn dort ab, wo du sowieso Musik hörst.</p>
+    ${abschnitte}`;
+  document.title = "Die Ohrwürmer der Mumin Chroniken";
+}
+
+function zeigeLied(lied){
+  const knoepfe = [];
+  if(lied.spotify) knoepfe.push(`<a class="knopf" href="${esc(lied.spotify)}" target="_blank" rel="noopener">${ICON.spotify}Auf Spotify hören</a>`);
+  if(lied.youtube) knoepfe.push(`<a class="knopf hell" href="${esc(lied.youtube)}" target="_blank" rel="noopener">${ICON.youtube}Auf YouTube ansehen</a>`);
+  if(!knoepfe.length) knoepfe.push(`<div class="fehlt">Der Link wird noch eingetragen.</div>`);
+
+  buehne.innerHTML = `
+    <a class="zurueck" href="#/">Alle Ohrwürmer</a>
+    <h1 class="kapitelkopf">${esc(lied.kapitel)}</h1>
+    <h2 class="blatt-titel">${esc(lied.titel)}</h2>
+    <div class="kuenstler-gross">${esc(lied.kuenstler)}</div>
+    <div class="notiz">${esc(lied.notiz)}</div>
+    <div class="knopfreihe">${knoepfe.join("")}</div>`;
+  document.title = lied.titel + " – Mumin Chroniken";
+}
+
+function zeigeQr(){
+  const basis = location.origin + location.pathname;
+  buehne.innerHTML = `
+    <a class="zurueck" href="#/">Alle Ohrwürmer</a>
+    <h1 class="kapitelkopf">QR-Codes</h1>
+    <p>Ein Code pro Ohrwurm. Über Drucken (Strg&nbsp;+&nbsp;P) sauber aufs Papier bringen oder einzeln
+    per Rechtsklick als Bild speichern und ins Layout setzen.</p>
+    <div class="qr-raster" id="qr-raster"></div>`;
+
+  const raster = document.getElementById("qr-raster");
+  LIEDER.forEach(l => {
+    const url = basis + "#/" + l.id;
+    const feld = document.createElement("div");
+    feld.className = "qr-feld";
+    const box = document.createElement("div");
+    feld.appendChild(box);
+    feld.insertAdjacentHTML("beforeend", `<span>${esc(l.titel === "Noch offen" ? l.kuenstler : l.titel)}</span><code>${esc(url)}</code>`);
+    raster.appendChild(feld);
+    if(window.QRCode){ new QRCode(box, {text:url, width:240, height:240, colorDark:"#2A2119", colorLight:"#FBF1E3", correctLevel:QRCode.CorrectLevel.M}); }
+  });
+  if(!window.QRCode){
+    raster.insertAdjacentHTML("beforebegin","<div class='fehlt'>Die QR-Codes brauchen eine Internetverbindung. Seite bitte online neu laden.</div>");
+  }
+}
+
+function route(){
+  const id = (location.hash || "#/").replace(/^#\/?/, "");
+  if(id === "qr") return zeigeQr();
+  const lied = LIEDER.find(l => l.id === id);
+  lied ? zeigeLied(lied) : zeigeUebersicht();
+  window.scrollTo(0,0);
+}
+
+window.addEventListener("hashchange", route);
+
+const s = document.createElement("script");
+s.src = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
+s.onload = () => { if(location.hash.replace(/^#\/?/,"") === "qr") zeigeQr(); };
+document.head.appendChild(s);
+
+route();
+</script>
+</body>
+</html>
