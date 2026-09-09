@@ -36,6 +36,15 @@
     "youtube": "https://youtu.be/BNHamTwxJ6Q?si=fcP5JitGFgeSHhzK"
   },
   {
+    "id": "kapitel-3-schau-mal-herein",
+    "titel": "Schau mal herein",
+    "kuenstler": "Helene Fischer, Thomas Silbereisen",
+    "kapitel": "Kapitel 3 - Geschichten aus dem Büro",
+    "notiz": "",
+    "spotify": "https://open.spotify.com/intl-de/track/0f6pPvxwkvBFaIpfhAQHgt?si=2731ee4f574b4f81",
+    "youtube": ""
+  },
+  {
     "id": "moskau",
     "titel": "Moskau",
     "kuenstler": "Dschinghis Khan",
@@ -151,14 +160,5 @@
     "notiz": "",
     "spotify": "https://open.spotify.com/intl-de/track/7gF9RfiO8nBhFhBkLuiUrb?si=a2fec391aa8945e9",
     "youtube": "https://youtu.be/0qj67KE5VXI?si=fIxVS4mE4zV7Yne4"
-  },
-  {
-    "id": "kapitel-3-schau-mal-herein",
-    "titel": "Schau mal herein",
-    "kuenstler": "Helene Fischer, Thomas Silbereisen",
-    "kapitel": "Kapitel 3 - Geschichten aus dem Büro",
-    "notiz": "",
-    "spotify": "https://open.spotify.com/intl-de/track/0f6pPvxwkvBFaIpfhAQHgt?si=2731ee4f574b4f81",
-    "youtube": ""
   }
 ]
